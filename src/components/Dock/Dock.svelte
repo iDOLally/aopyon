@@ -4,6 +4,7 @@
 	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config';
 	import { apps } from '🍎/state/apps.svelte';
+	import { device } from '🍎/state/device.svelte';
 	import { is_dock_hidden } from '🍎/state/dock.svelte';
 	import DockItem from './DockItem.svelte';
 	import { untrack } from 'svelte';
@@ -17,6 +18,13 @@
 	let dockContainerEl = $state<HTMLElement>();
 
 	$effect(() => {
+		// On mobile there's no mouse to swipe the dock back into view, so never
+		// auto-hide it — keep it permanently visible.
+		if (device.is_mobile) {
+			untrack(() => (is_dock_hidden.value = false));
+			return;
+		}
+
 		// Due to how pointer-events: none works, if dock auto opens, you move away, it won't close automatically.
 		// So close it manually if mouse pointer goes out of the dock area.
 		if (Math.abs(mouseY - bodyHeight) > dockContainerEl?.clientHeight) {

@@ -82,6 +82,11 @@
 	}
 
 	async function maximizeApp() {
+		// On mobile every window is already forced fullscreen via CSS, so the
+		// maximize button is a no-op — toggling fullscreen state here would only
+		// trip the dock's auto-hide logic.
+		if (device.is_mobile) return;
+
 		if (!preferences.reduced_motion) {
 			windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, translate 0.3s ease';
 		}
