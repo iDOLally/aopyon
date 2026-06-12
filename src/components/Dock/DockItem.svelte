@@ -35,11 +35,9 @@
 	const {
 		mouse_x,
 		app_id,
-		needs_update = false,
 	}: {
 		mouse_x: number | null;
 		app_id: AppID;
-		needs_update?: boolean;
 	} = $props();
 
 	let image_el = $state<HTMLImageElement>();
@@ -123,12 +121,6 @@
 		cancelAnimationFrame(raf);
 	});
 
-	const is_app_store = $derived(app_id === 'appstore');
-	const show_pwa_badge = $derived(is_app_store && needs_update);
-
-	$effect(() => {
-		if (show_pwa_badge) bounceEffect();
-	});
 </script>
 
 <button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {app_id}">
@@ -155,9 +147,6 @@
 
 	<div class="dot" style:--opacity={+apps.open[app_id]}></div>
 
-	{#if show_pwa_badge}
-		<div class="pwa-badge" style:transform="scale({$width_px / baseWidth})">1</div>
-	{/if}
 </button>
 
 <style>

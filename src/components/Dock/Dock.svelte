@@ -4,7 +4,6 @@
 	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config';
 	import { apps } from '🍎/state/apps.svelte';
-	import { system_needs_update } from '🍎/state/system.svelte';
 	import { is_dock_hidden } from '🍎/state/dock.svelte';
 	import DockItem from './DockItem.svelte';
 	import { untrack } from 'svelte';
@@ -64,7 +63,7 @@
 				<div class="divider" aria-hidden="true"></div>
 			{/if}
 
-			<DockItem mouse_x={dock_mouse_x} app_id={appID} needs_update={system_needs_update.value} />
+			<DockItem mouse_x={dock_mouse_x} app_id={appID} />
 		{/each}
 	</div>
 </section>

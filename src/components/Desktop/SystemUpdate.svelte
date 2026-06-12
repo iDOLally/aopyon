@@ -1,19 +1,11 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { useRegisterSW } from 'virtual:pwa-register/svelte';
-	import { system_needs_update } from '🍎/state/system.svelte';
 	import SystemDialog from '../SystemUI/SystemDialog.svelte';
 
 	let system_update_dialog = $state<SystemDialog>();
 
 	// replaced dynamically
 	const build_date = '__DATE__';
-
-	// Will store the update event, so we can use this value on AppStore to show the badge.
-	// If the user click on Later instead Restart, the dialog is closed but the update is still there.
-	// We don't need to store it on localStorage since the new sw is on skip waiting state, and so
-	// a refresh or reopening the browser will prompt again the dialog to restart.
-	// Once updateServiceWorker is called, there is a full reload, so the app will be loaded again.
 
 	const { needRefresh, updateServiceWorker } = useRegisterSW({
 		onRegistered(swr) {
@@ -28,12 +20,6 @@
 		if ($needRefresh) {
 			system_update_dialog?.open();
 		}
-	});
-
-	$effect(() => {
-		$needRefresh;
-
-		untrack(() => (system_needs_update.value = $needRefresh));
 	});
 
 	function close() {

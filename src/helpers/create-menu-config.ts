@@ -7,9 +7,6 @@ const apple_menu = {
 		},
 		'system-preferences': {
 			title: 'System Preferences...',
-		},
-		'app-store': {
-			title: 'App Store...',
 			breakAfter: true,
 		},
 		'recent-items': {

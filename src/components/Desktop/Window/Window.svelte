@@ -144,7 +144,7 @@
 		<TrafficLights {app_id} on_maximize_click={maximizeApp} on_close_app={closeApp} />
 	</div>
 
-	<AppNexus {app_id} is_being_dragged={apps.is_being_dragged} />
+	<AppNexus {app_id} />
 </section>
 
 <style>
