@@ -272,7 +272,9 @@
 			left: 0;
 
 			width: 100% !important;
-			height: 100% !important;
+			/* Leave a gap at the bottom so the always-visible dock tooltips, which
+			   float up above the dock icons, don't overlap the window content. */
+			height: calc(100% - 1rem) !important;
 
 			translate: 0px 0px 0px !important;
 		}
