@@ -3,7 +3,6 @@
 	import TopBar from '../TopBar/TopBar.svelte';
 	import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
 	import BootupScreen from './BootupScreen.svelte';
-	import ContextMenu from './ContextMenu.svelte';
 	import SystemUpdate from './SystemUpdate.svelte';
 	import WindowsArea from './Window/WindowsArea.svelte';
 
@@ -17,11 +16,15 @@
 			import('@fontsource/inter/latin-ext-600.css'),
 		]);
 	}
-	/** @type {HTMLElement} */
-	let mainEl;
+
+	function suppressContextMenu(event) {
+		event.preventDefault();
+	}
 </script>
 
-<div bind:this={mainEl} class="container">
+<svelte:body oncontextmenu={suppressContextMenu} />
+
+<div class="container">
 	<main>
 		<TopBar />
 		<WindowsArea />
@@ -31,8 +34,6 @@
 	<Wallpaper />
 	<BootupScreen />
 	<SystemUpdate />
-
-	<ContextMenu target_element={mainEl} />
 </div>
 
 <style>
