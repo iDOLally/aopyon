@@ -502,4 +502,77 @@
 			font-size: 2.9rem;
 		}
 	}
+
+	/* Mobile (fullscreen window): stack the sidebar on top and the main
+	   content below, instead of the side-by-side desktop layout. */
+	@media (max-width: 768px) {
+		.container {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto minmax(0, 1fr);
+
+			/* The left-to-right sidebar gradient makes no sense once stacked. */
+			background-image: none;
+			background-color: hsla(var(--color), 1);
+		}
+
+		aside,
+		aside.light {
+			grid-area: 1 / 1 / span 1 / span 1;
+
+			width: auto;
+			height: auto;
+			margin: 0;
+
+			border-radius: 0.75rem 0.75rem 0 0;
+
+			background-color: hsla(var(--color), 0.72);
+			backdrop-filter: blur(12px);
+
+			/* The fixed-position blur layer assumed the fixed sidebar size. */
+			&::before {
+				display: none;
+			}
+
+			.sidebar-profile {
+				/* Keep clear of the window's traffic lights. */
+				margin: 2.6rem 0.9rem 0.7rem;
+			}
+
+			nav {
+				flex-direction: row;
+				flex-wrap: wrap;
+				/* Smaller row-gap: the invisible <hr> sits between the two rows and
+				   picks up a gap on each side, so the column-gap is doubled vertically. */
+				gap: 0.1rem 0.3rem;
+
+				margin: 0 0.7rem 0.7rem;
+
+				/* Force a line break so the Chinese SNS group starts a new row,
+				   instead of acting as a vertical divider. */
+				hr {
+					flex-basis: 100%;
+
+					width: 100%;
+					height: 0;
+					margin: 0;
+
+					background-color: transparent;
+				}
+
+				a {
+					padding: 0.45rem 0.7rem;
+				}
+			}
+		}
+
+		.content {
+			grid-area: 2 / 1 / span 1 / span 1;
+
+			padding: 1.4rem 1.1rem;
+		}
+
+		h1 {
+			font-size: 2.6rem;
+		}
+	}
 </style>

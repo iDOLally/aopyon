@@ -169,7 +169,8 @@
 		gap: 1rem;
 
 		.image {
-			width: 30rem;
+			width: 100%;
+			max-width: 30rem;
 			height: auto;
 
 			border-radius: 1rem;
@@ -276,6 +277,29 @@
 		p {
 			width: 100%;
 			text-align: center;
+		}
+	}
+
+	@media (max-width: 768px) {
+		h2 {
+			font-size: 1.3rem;
+		}
+
+		.main-area {
+			padding: 0.75rem;
+		}
+
+		/* Reclaim the wide custom scrollbar so content gets the full width. */
+		.main-area::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		.main-area::-webkit-scrollbar-thumb {
+			border-width: 1px;
+		}
+
+		.standalone-wallpapers .wallpapers {
+			grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)) !important;
 		}
 	}
 </style>

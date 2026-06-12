@@ -51,6 +51,14 @@
 				opacity: 1;
 			}
 		}
+
+		/* Touch devices have no hover, so reveal the icons permanently —
+		   otherwise the close button is just an unlabelled coloured dot. */
+		@media (pointer: coarse) {
+			:global(svg) {
+				opacity: 1;
+			}
+		}
 	}
 
 	button {

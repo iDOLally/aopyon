@@ -17,6 +17,7 @@
 	import { rand_int } from '🍎/helpers/random.ts';
 	import { sleep } from '🍎/helpers/sleep';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
+	import { device } from '🍎/state/device.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
 	import AppNexus from '../../apps/AppNexus.svelte';
@@ -43,7 +44,7 @@
 		y: (100 + randY) / 2,
 	};
 
-	const disabledComp = Compartment.of(() => disabled(!dragging_enabled));
+	const disabledComp = Compartment.of(() => disabled(!dragging_enabled || device.is_mobile));
 
 	function nextFrame() {
 		return new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
@@ -137,6 +138,7 @@
 	class="container"
 	class:dark={preferences.theme.scheme === 'dark'}
 	class:active={apps.active === app_id}
+	class:mobile={device.is_mobile}
 	style:width="{+width / remModifier}rem"
 	style:height="{+height / remModifier}rem"
 	style:z-index={apps.z_indices[app_id]}
@@ -185,6 +187,20 @@
 			/* // --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.218), 0px 22.3px 40.2px rgba(0, 0, 0, 0.322),
       //   0px 100px 180px rgba(0, 0, 0, 0.54); */
 			--elevated-shadow: 0px 8.5px 10px rgba(0, 0, 0, 0.28), 0px 68px 80px rgba(0, 0, 0, 0.56);
+		}
+
+		/* On mobile every window is forced fullscreen (single-tasking), so a window
+		   can never end up dragged off-screen. `!important` is required because
+		   neodrag and the maximize logic write width/height/translate as inline
+		   styles, which would otherwise win over these rules. */
+		&.mobile {
+			top: 0;
+			left: 0;
+
+			width: 100% !important;
+			height: 100% !important;
+
+			translate: 0px 0px 0px !important;
 		}
 
 		&.dark {
