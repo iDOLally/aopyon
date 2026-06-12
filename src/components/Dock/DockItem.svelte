@@ -43,6 +43,11 @@
 
 	let image_el = $state<HTMLImageElement>();
 
+	// Mobile has no pointer to drive the magnification, and the per-frame
+	// animation tends to stutter on touch devices — so treat mobile as
+	// "reduced motion" and skip the dock animations there.
+	const reduce_motion = $derived(preferences.reduced_motion || device.is_mobile);
+
 	let distance = $state(beyond_the_distance_limit);
 
 	const width_px = spring(baseWidth, {
@@ -79,7 +84,7 @@
 
 	$effect(() => {
 		mouse_x;
-		if (preferences.reduced_motion || apps.is_being_dragged) return;
+		if (reduce_motion || apps.is_being_dragged) return;
 
 		raf = requestAnimationFrame(animate);
 	});
@@ -97,6 +102,8 @@
 	});
 
 	async function bounceEffect() {
+		if (reduce_motion) return;
+
 		// Animate the icon
 		await appOpenIconBounceTransform.set(-40);
 
@@ -133,7 +140,7 @@
 		class:tooltip-enabled={!apps.is_being_dragged}
 		class:mobile={device.is_mobile}
 		class:dark={preferences.theme.scheme === 'dark'}
-		style:top={preferences.reduced_motion ? '-50px' : '-35%'}
+		style:top={preferences.reduced_motion && !device.is_mobile ? '-50px' : '-35%'}
 		style:transform="translate(0, {$appOpenIconBounceTransform}px)"
 		use:elevation={'dock-tooltip'}
 	>
