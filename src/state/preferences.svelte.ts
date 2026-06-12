@@ -17,12 +17,12 @@ export const preferences = persisted('macos:preferences', {
 	reduced_motion: matchMedia('(prefers-reduced-motion)').matches,
 	theme: {
 		scheme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
-		primaryColor: 'blue',
+		primaryColor: 'cyan',
 	} as Theme,
 	wallpaper: {
 		image: 'ventura-2',
 		id: 'ventura',
-		canControlTheme: true,
+		canControlTheme: false,
 	} as WallpaperSettings,
 });
 
