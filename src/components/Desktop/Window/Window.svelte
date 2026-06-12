@@ -61,16 +61,22 @@
 		apps.active = app_id;
 	}
 
-	function windowCloseTransition(
+	function windowTransition(
 		el: HTMLElement,
 		{ duration = preferences.reduced_motion ? 0 : 300 }: SvelteTransitionConfig = {},
 	): SvelteTransitionReturnType {
 		const existingTransform = getComputedStyle(el).transform;
+		// `transform: none scale(t)` is invalid CSS, so drop "none" — otherwise
+		// the scale is silently ignored.
+		const base = existingTransform === 'none' ? '' : `${existingTransform} `;
 
 		return {
 			duration,
 			easing: sineInOut,
-			css: (t) => `opacity: ${t}; transform: ${existingTransform} scale(${t})`,
+			// Animating transform every frame on open also forces Safari to repaint
+			// the freshly-mounted window's compositing layer, which otherwise renders
+			// transparent until the window is moved (dark mode shows through).
+			css: (t) => `opacity: ${t}; transform: ${base}scale(${t})`,
 		};
 	}
 
@@ -145,7 +151,8 @@
 	])}
 	onclick={focusApp}
 	onkeydown={() => {}}
-	out:windowCloseTransition
+	in:windowTransition
+	out:windowTransition
 >
 	<div class="tl-container {app_id}" use:elevation={'window-traffic-lights'}>
 		<TrafficLights {app_id} on_maximize_click={maximizeApp} on_close_app={closeApp} />
@@ -166,7 +173,8 @@
 
 		position: absolute;
 
-		will-change: width, height;
+		will-change: transform;
+		transform: translateZ(0);
 
 		border-radius: 0.75rem;
 		box-shadow: var(--elevated-shadow);
