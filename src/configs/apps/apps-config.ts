@@ -6,13 +6,16 @@ const wallpapers = create_app_config({
 
 	height: 600,
 	width: 800,
-
-	dock_breaks_before: true,
 });
 
 const calendar = create_app_config({
 	title: 'Calendar',
 	resizable: true,
+
+	height: 640,
+	width: 800,
+
+	dock_breaks_before: true,
 });
 
 const profile = create_app_config({
@@ -25,6 +28,6 @@ const profile = create_app_config({
 
 export const apps_config = {
 	profile,
-	wallpapers,
 	calendar,
+	wallpapers,
 };

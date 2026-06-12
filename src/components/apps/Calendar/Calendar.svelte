@@ -1,57 +1,22 @@
 <script lang="ts">
-	import { addMonths, format } from 'date-fns';
-	import LeftArrow from '~icons/ic/round-chevron-left';
-	import RightArrow from '~icons/ic/round-chevron-right';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
-	import MonthView from './MonthView.svelte';
 
-	const { view = 'month' }: { view?: 'year' | 'month' | 'week' | 'day' } = $props();
-
-	let selected_date = $state(new Date());
-
-	function goToToday() {
-		selected_date = new Date();
-	}
-
-	function goPreviousMonth() {
-		selected_date = addMonths(selected_date, -1);
-	}
-
-	function goNextMonth() {
-		selected_date = addMonths(selected_date, 1);
-	}
+	const calendar_src =
+		'https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showPrint=0&showTitle=0&src=YnJuMzBma2xwNzYzNjA4czRzdWc3bjg2OGNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=c3BwaWRvbEBnbWFpbC5jb20&src=amEuamFwYW5lc2UjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23009688&color=%23d81b60&color=%23e67c73';
 </script>
 
 <section class="container" class:dark={preferences.theme.scheme === 'dark'}>
 	<header class="app-window-drag-handle titlebar"></header>
 
 	<section class="main-area">
-		<div class="calendar-header">
-			<div>
-				<span class="month">{format(selected_date, 'MMMM')}</span>
-				<span class="year">{format(selected_date, 'yyyy')}</span>
-			</div>
-
-			<div class="control-buttons">
-				<button onclick={goPreviousMonth}>
-					<LeftArrow />
-				</button>
-				<button onclick={goToToday}>Today</button>
-				<button onclick={goNextMonth}>
-					<RightArrow />
-				</button>
-			</div>
-		</div>
-
-		{#if view === 'year'}
-			<div></div>
-		{:else if view === 'month'}
-			<MonthView {selected_date} />
-		{:else if view === 'week'}
-			<div></div>
-		{:else}
-			<div></div>
-		{/if}
+		<iframe
+			title="Google Calendar"
+			src={calendar_src}
+			width="100%"
+			height="600"
+			frameborder="0"
+			scrolling="no"
+		></iframe>
 	</section>
 </section>
 
@@ -84,8 +49,6 @@
 	}
 
 	.main-area {
-		color: var(--system-color-light-contrast);
-
 		margin-top: var(--title-bar-height);
 
 		height: calc(100% - var(--title-bar-height));
@@ -97,53 +60,10 @@
 		flex-direction: column;
 	}
 
-	.calendar-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-
-		padding: 10px;
-	}
-
-	.month {
-		font-size: 1.5rem;
-		font-weight: bold;
-	}
-
-	.year {
-		font-size: 1.5rem;
-	}
-
-	.control-buttons {
-		display: flex;
-		align-items: flex-end;
-		justify-content: center;
-
-		button {
-			--bgcolor: hsla(var(--system-color-light-hsl), 0.5);
-
-			border-radius: 0.375rem;
-			box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
-
-			background-color: var(--bgcolor);
-
-			color: var(--system-color-dark);
-			fill: var(--system-color-dark);
-			font-weight: bold;
-
-			padding: 0.2rem 0.5rem;
-			margin: 0 0.05rem;
-
-			height: 1.3rem;
-
-			:global(svg) {
-				font-size: 1.2rem;
-			}
-
-			:global(body.dark) & {
-				--bgcolor: var(--system-color-grey-800);
-				box-shadow: 0 0 white;
-			}
-		}
+	iframe {
+		border: solid 1px #777;
+		width: 100%;
+		height: 100%;
+		flex: 1;
 	}
 </style>
