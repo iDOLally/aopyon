@@ -30,6 +30,7 @@
 	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
+	import { device } from '🍎/state/device.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
 	const {
@@ -130,6 +131,7 @@
 	<p
 		class="tooltip"
 		class:tooltip-enabled={!apps.is_being_dragged}
+		class:mobile={device.is_mobile}
 		class:dark={preferences.theme.scheme === 'dark'}
 		style:top={preferences.reduced_motion ? '-50px' : '-35%'}
 		style:transform="translate(0, {$appOpenIconBounceTransform}px)"
@@ -208,6 +210,15 @@
 			--double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
 				0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
 		}
+	}
+
+	/* On mobile there's no hover, so keep the dock titles permanently visible.
+	   Slightly smaller to reduce overlap between neighbouring tooltips. */
+	.tooltip.tooltip-enabled.mobile {
+		display: block;
+
+		padding: 0.3rem 0.5rem;
+		font-size: 0.75rem;
 	}
 
 	.dot {

@@ -4,6 +4,7 @@
 	import MinimizeSvg from '🍎/components/SVG/traffic-lights/MinimizeSVG.svelte';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
+	import { device } from '🍎/state/device.svelte.ts';
 
 	const {
 		app_id,
@@ -18,7 +19,7 @@
 	} = $props();
 </script>
 
-<div class="container" class:unfocused={apps.active !== app_id}>
+<div class="container" class:unfocused={apps.active !== app_id} class:mobile={device.is_mobile}>
 	<button class="close-light" onclick={on_close_app}> <CloseIcon /> </button>
 	<button class="minimize-light" onclick={on_minimize_click}> <MinimizeSvg /> </button>
 	<button class="stretch-light" onclick={on_maximize_click}>
@@ -58,12 +59,10 @@
 			}
 		}
 
-		/* Touch devices have no hover, so reveal the icons permanently —
+		/* On mobile there's no hover, so reveal the icons permanently —
 		   otherwise the close button is just an unlabelled coloured dot. */
-		@media (pointer: coarse) {
-			:global(svg) {
-				opacity: 1;
-			}
+		&.mobile :global(svg) {
+			opacity: 1;
 		}
 	}
 
