@@ -112,6 +112,9 @@
 		apps.open[app_id] = true;
 		apps.active = app_id;
 
+		// Restore the window if it was minimized to the dock.
+		if (apps.minimized[app_id]) apps.minimized[app_id] = false;
+
 		if (isAppAlreadyOpen) return;
 
 		bounceEffect();

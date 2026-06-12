@@ -118,7 +118,71 @@
 	function closeApp() {
 		apps.open[app_id] = false;
 		apps.fullscreen[app_id] = false;
+		apps.minimized[app_id] = false;
 	}
+
+	const MINIMIZE_DURATION = 400;
+
+	async function minimizeApp() {
+		if (!windowEl) return;
+
+		// Compute a genie-like target: shrink the window toward its dock icon.
+		const dockIcon = document.querySelector(`.dock-open-app-button.${app_id} img`);
+		const winRect = windowEl.getBoundingClientRect();
+
+		let target_transform = 'scale(0.2)';
+		if (dockIcon) {
+			const dockRect = dockIcon.getBoundingClientRect();
+			const dx = dockRect.left + dockRect.width / 2 - (winRect.left + winRect.width / 2);
+			const dy = dockRect.top + dockRect.height / 2 - (winRect.top + winRect.height / 2);
+			target_transform = `translate(${dx}px, ${dy}px) scale(0.05)`;
+		}
+
+		if (!preferences.reduced_motion) {
+			windowEl.style.transition = 'transform 0.4s ease-in, opacity 0.4s ease-in';
+		}
+
+		await nextFrame();
+
+		windowEl.style.transformOrigin = 'bottom center';
+		windowEl.style.transform = `translateZ(0) ${target_transform}`;
+		windowEl.style.opacity = '0';
+
+		await sleep(preferences.reduced_motion ? 0 : MINIMIZE_DURATION);
+
+		// Keep the window mounted (preserving its state) but out of the way.
+		windowEl.style.visibility = 'hidden';
+		windowEl.style.pointerEvents = 'none';
+	}
+
+	async function restoreApp() {
+		if (!windowEl) return;
+
+		windowEl.style.visibility = '';
+		windowEl.style.pointerEvents = '';
+
+		await nextFrame();
+
+		windowEl.style.transform = 'translateZ(0)';
+		windowEl.style.opacity = '1';
+
+		await sleep(preferences.reduced_motion ? 0 : MINIMIZE_DURATION);
+
+		if (!preferences.reduced_motion) windowEl.style.transition = '';
+		windowEl.style.transformOrigin = '';
+
+		focusApp();
+	}
+
+	// Drive minimize/restore off the shared state, so the dock icon can restore it too.
+	let prev_minimized = false;
+	$effect(() => {
+		const minimized = apps.minimized[app_id];
+		if (!windowEl || minimized === prev_minimized) return;
+
+		prev_minimized = minimized;
+		untrack(() => (minimized ? minimizeApp() : restoreApp()));
+	});
 
 	function onAppDragStart() {
 		focusApp();
@@ -157,7 +221,12 @@
 	out:windowTransition
 >
 	<div class="tl-container {app_id}" use:elevation={'window-traffic-lights'}>
-		<TrafficLights {app_id} on_maximize_click={maximizeApp} on_close_app={closeApp} />
+		<TrafficLights
+			{app_id}
+			on_maximize_click={maximizeApp}
+			on_close_app={closeApp}
+			on_minimize_click={() => (apps.minimized[app_id] = true)}
+		/>
 	</div>
 
 	<AppNexus {app_id} />

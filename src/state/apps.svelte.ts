@@ -36,4 +36,12 @@ export const apps = $state({
 		calendar: false,
 		// 'system-preferences': false,
 	} as Record<AppID, boolean>,
+
+	minimized: {
+		profile: false,
+		wallpapers: false,
+		// safari: false,
+		calendar: false,
+		// 'system-preferences': false,
+	} as Record<AppID, boolean>,
 });
