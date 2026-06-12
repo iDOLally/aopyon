@@ -52,13 +52,13 @@
 	on_close={() => (is_theme_warning_dialog_open = false)}
 >
 	<section class="theme-warning-section">
-		<img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="Wallpapers app logo" />
+		<img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="壁紙アプリのロゴ" />
 
-		<h3>Current Wallpaper Settings prevent changing theme</h3>
-		<p>Head over to Wallpapers app to change this setting or choose a standalone wallpaper.</p>
+		<h3>現在の壁紙設定ではテーマを変更できません</h3>
+		<p>壁紙アプリでこの設定を変更するか、スタンドアロンの壁紙を選択してください。</p>
 
 		<div class="buttons">
-			<button onclick={() => theme_warning_dialog.close()}>Close</button>
+			<button onclick={() => theme_warning_dialog.close()}>閉じる</button>
 			<button
 				class="confirm"
 				onclick={() => {
@@ -68,7 +68,7 @@
 					apps.active = 'wallpapers';
 				}}
 			>
-				Go to Wallpapers
+				壁紙アプリを開く
 			</button>
 		</div>
 	</section>

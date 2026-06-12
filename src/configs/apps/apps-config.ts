@@ -1,7 +1,7 @@
 import { create_app_config } from '🍎/helpers/create-app-config.ts';
 
 const wallpapers = create_app_config({
-	title: 'Wallpapers',
+	title: '壁紙',
 	resizable: true,
 
 	height: 600,
@@ -9,7 +9,7 @@ const wallpapers = create_app_config({
 });
 
 const calendar = create_app_config({
-	title: 'Calendar',
+	title: 'カレンダー',
 	resizable: true,
 
 	height: 640,
@@ -19,7 +19,7 @@ const calendar = create_app_config({
 });
 
 const profile = create_app_config({
-	title: 'Profile',
+	title: '宮澤葵',
 	resizable: true,
 
 	height: 600,

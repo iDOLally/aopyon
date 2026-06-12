@@ -21,6 +21,11 @@
 
 	let containerEl: HTMLElement;
 
+	const wallpaper_type_labels = {
+		dynamic: 'ダイナミックな壁紙',
+		standalone: 'スタンドアロンの壁紙',
+	};
+
 	function toggleTheme() {
 		if (
 			wallpapers_config[preferences.wallpaper.id].type === 'dynamic' &&
@@ -67,7 +72,7 @@
 			<span class="toggle-icon" class:filled={preferences.theme.scheme === 'dark'}>
 				<DarkMode />
 			</span>
-			Dark mode
+			ダークモード
 		</ActionCenterTile>
 	</ActionCenterSurface>
 
@@ -81,7 +86,7 @@
 			<span class="toggle-icon" class:filled={!preferences.reduced_motion}>
 				<TransitionMaskedIcon />
 			</span>
-			Animations
+			アニメーション
 		</ActionCenterTile>
 	</ActionCenterSurface>
 
@@ -93,7 +98,7 @@
 	>
 		<ActionCenterTile grid={[1, 1]} role="region">
 			<div class="color-picker">
-				<p>System Color</p>
+				<p>システムカラー</p>
 				<div class="color-palette">
 					{#each Object.keys(colors) as colorID}
 						{@const { contrastHsl, hsl } = colors[colorID][preferences.theme.scheme]}
@@ -124,12 +129,12 @@
 				<img
 					class="wallpaper-thumbnail"
 					src={wallpapers_config[preferences.wallpaper.id].thumbnail}
-					alt="Current wallpaper"
+					alt="現在の壁紙"
 				/>
 
 				<div class="wallpaper-info">
 					<h3>{wallpapers_config[preferences.wallpaper.id].name}</h3>
-					<p>{wallpapers_config[preferences.wallpaper.id].type} wallpaper</p>
+					<p>{wallpaper_type_labels[wallpapers_config[preferences.wallpaper.id].type]}</p>
 				</div>
 			</div>
 		</ActionCenterTile>
@@ -146,7 +151,7 @@
 				<span class="toggle-icon" class:filled={should_show_notch.value}>
 					<NotchIcon />
 				</span>
-				Notch
+				ノッチ
 			</div>
 		</ActionCenterTile>
 	</ActionCenterSurface>

@@ -6,7 +6,9 @@
 </script>
 
 <section class="container" class:dark={preferences.theme.scheme === 'dark'}>
-	<header class="app-window-drag-handle titlebar"></header>
+	<header class="app-window-drag-handle titlebar">
+		<span>カレンダー</span>
+	</header>
 
 	<section class="main-area">
 		<iframe
@@ -46,6 +48,17 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		span {
+			color: hsla(var(--system-color-dark-hsl), 0.8);
+			font-weight: 500;
+			font-size: 0.9rem;
+			letter-spacing: 0.5px;
+		}
 	}
 
 	.main-area {

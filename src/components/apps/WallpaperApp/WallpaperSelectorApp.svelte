@@ -10,6 +10,11 @@
 		([, { type }]) => type === 'standalone',
 	);
 
+	const wallpaper_type_labels = {
+		dynamic: 'ダイナミックな壁紙',
+		standalone: 'スタンドアロンの壁紙',
+	};
+
 	const current_wallpaper_thumb = $derived(`url(${preferences.wallpaper.image})`);
 
 	function change_wallpaper(wallpaperName: WallpaperID) {
@@ -29,7 +34,7 @@
 
 <section class="container">
 	<header class="titlebar app-window-drag-handle">
-		<span>Wallpapers</span>
+		<span>壁紙</span>
 	</header>
 
 	<section class="main-area">
@@ -39,7 +44,7 @@
 			<div class="info">
 				<h2>{wallpapers_config[preferences.wallpaper.id].name}</h2>
 				<p class="wallpaper-type">
-					{wallpapers_config[preferences.wallpaper.id].type} wallpaper
+					{wallpaper_type_labels[wallpapers_config[preferences.wallpaper.id].type]}
 				</p>
 
 				<br /> <br />
@@ -47,7 +52,7 @@
 				{#if wallpapers_config[preferences.wallpaper.id].type !== 'standalone'}
 					<label>
 						<input type="checkbox" bind:checked={preferences.wallpaper.canControlTheme} />
-						Change dark/light mode as wallpapers change
+						壁紙の切り替えに合わせてダークモード・ライトモードを変更
 					</label>
 				{/if}
 			</div>
@@ -56,13 +61,13 @@
 		<br /><br /><br /><br />
 
 		<section class="dynamic-wallpapers">
-			<h2>Dynamic Wallpapers</h2>
+			<h2>ダイナミックな壁紙</h2>
 
 			<div class="wallpapers">
 				{#each dynamic_wallpapers as [id, { thumbnail, name, image }]}
 					<div class="wallpaper-button">
 						<button onclick={() => change_wallpaper(id)} onpointerenter={() => preload(image)}>
-							<img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
+							<img src={thumbnail} alt="macOS {name} 壁紙（ダイナミック）" />
 						</button>
 						<p>{name}</p>
 					</div>
@@ -73,13 +78,13 @@
 		<br /><br /><br />
 
 		<section class="standalone-wallpapers">
-			<h2>Standalone Wallpapers</h2>
+			<h2>スタンドアロンの壁紙</h2>
 
 			<div class="wallpapers">
 				{#each standalone_wallpapers as [id, { thumbnail, name, image }]}
 					<div class="wallpaper-button">
 						<button onclick={() => change_wallpaper(id)} onpointerenter={() => preload(image)}>
-							<img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
+							<img src={thumbnail} alt="macOS {name} 壁紙（スタンドアロン）" />
 						</button>
 						<p>{name}</p>
 					</div>
