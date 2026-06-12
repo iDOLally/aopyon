@@ -10,7 +10,7 @@
 		events,
 		position,
 	} from '@neodrag/svelte';
-	import { onMount, untrack } from 'svelte';
+	import { onMount, tick, untrack } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
 	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
@@ -27,7 +27,7 @@
 	let dragging_enabled = $state(true);
 
 	let is_maximized = $state(false);
-	let minimized_transform = $state<string>();
+	let minimized_translate = $state<string>();
 
 	let windowEl = $state<HTMLElement>();
 
@@ -44,6 +44,10 @@
 	};
 
 	const disabledComp = Compartment.of(() => disabled(!dragging_enabled));
+
+	function nextFrame() {
+		return new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+	}
 
 	$effect(() => {
 		apps.active_z_index;
@@ -72,21 +76,24 @@
 
 	async function maximizeApp() {
 		if (!preferences.reduced_motion) {
-			windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
+			windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, translate 0.3s ease';
 		}
 
 		if (!is_maximized) {
+			minimized_translate = windowEl.style.translate;
 			dragging_enabled = false;
 
-			minimized_transform = windowEl.style.transform;
-			windowEl.style.transform = `translate(0px, 0px)`;
+			await tick();
+			await nextFrame();
+
+			windowEl.style.translate = '0px 0px 0px';
 
 			windowEl.style.width = `100%`;
 			// windowEl.style.height = 'calc(100vh - 1.7rem - 5.25rem)';
 			windowEl.style.height = 'calc(100vh - 1.7rem)';
 		} else {
 			dragging_enabled = true;
-			windowEl.style.transform = minimized_transform;
+			windowEl.style.translate = minimized_translate ?? '';
 
 			windowEl.style.width = `${+width / remModifier}rem`;
 			windowEl.style.height = `${+height / remModifier}rem`;
