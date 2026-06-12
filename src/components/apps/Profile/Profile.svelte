@@ -51,8 +51,9 @@
 			<a href="https://www.tiktok.com/@aoi_xxk" use:external> <TikTokIcon /> TikTok </a>
 			<hr />
 			<a href="https://weibo.com/u/2110751371" use:external> <WeiboIcon /> 微博 </a>
-			<a href="https://space.bilibili.com/1120987510" use:external> <BilibiliIcon /> 哔哩哔哩 </a>
 			<a href="https://www.xiaohongshu.com/user/profile/5d04ed770000000012031c97" use:external> <XiaohongshuIcon /> 小红书 </a>
+			<a href="https://space.bilibili.com/1120987510" use:external> <BilibiliIcon /> 哔哩哔哩 </a>
+			<a href="https://www.douyin.com/user/MS4wLjABAAAAtkK87nYg4ccHJ983etyz51I8z0dmpr0rPUiiAXcgchkZfJaN7tlYLlFKG01eScsN" use:external> <TikTokIcon /> 抖音 </a>
 		</nav>
 	</aside>
 
