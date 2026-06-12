@@ -63,10 +63,12 @@
 				<ruby><rb>葵</rb><rp>（</rp><rt>あおい</rt><rp>）</rp></ruby>
 			</h1>
 			<p class="lead">
-				宮澤葵は、日本を拠点に活動するアイドル。愛称は「あおぴょん」「小小葵」。
+				宮澤葵は、東京を拠点に活動するアイドル。
+				<br />
+				愛称は「あおぴょん」「小小葵」。
 			</p>
 			<p>
-				2021年に活動を開始し、TOKYO SONIC BOOMやChummyでの活動を経て、
+				2021年に活動を開始し、TOKYO SONIC BOOM 等の活動を経て、
 				現在はニコニコ♡PRINCESSとニコニコ♡CREAMのメンバーを兼任している。
 			</p>
 		</div>
@@ -78,7 +80,7 @@
 			</div>
 			<div>
 				<span>出身地</span>
-				<strong>中国</strong>
+				<strong>中国・武漢</strong>
 			</div>
 			<div>
 				<span>血液型</span>
