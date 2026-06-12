@@ -4,16 +4,14 @@ export type AppID = keyof typeof apps_config;
 
 export const apps = $state({
 	open: {
+		profile: true,
 		wallpapers: false,
-		finder: true,
 		// safari: false,
 		calendar: false,
 		// 'system-preferences': false,
-
-		'purus-twitter': false,
 	} as Record<AppID, boolean>,
 
-	active: 'finder' satisfies AppID,
+	active: 'profile' satisfies AppID,
 
 	/**
 	 * Maximum zIndex for the active app
@@ -22,24 +20,20 @@ export const apps = $state({
 	active_z_index: -2,
 
 	z_indices: {
+		profile: 0,
 		wallpapers: 0,
-		finder: 0,
 		// safari: 0,
 		calendar: 0,
 		// 'system-preferences': 0,
-
-		'purus-twitter': 0,
 	} as Record<AppID, number>,
 
 	is_being_dragged: false as boolean,
 
 	fullscreen: {
+		profile: false,
 		wallpapers: false,
-		finder: false,
 		// safari: false,
 		calendar: false,
 		// 'system-preferences': false,
-
-		'purus-twitter': false,
 	} as Record<AppID, boolean>,
 });

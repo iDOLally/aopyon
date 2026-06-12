@@ -15,41 +15,16 @@ const calendar = create_app_config({
 	resizable: true,
 });
 
-const finder = create_app_config({
-	title: 'Finder',
+const profile = create_app_config({
+	title: 'Profile',
 	resizable: true,
-
-	// dockBreaksBefore: true,
-	should_open_window: false,
-});
-
-const safari = create_app_config({
-	title: 'Safari',
-	resizable: true,
-});
-
-const systemPreferences = create_app_config({
-	title: 'System Preferences',
-	resizable: true,
-});
-
-const purusTwitter = create_app_config({
-	title: `About the Developer`,
-	resizable: true,
-
-	dock_breaks_before: true,
 
 	height: 600,
 	width: 800,
 });
 
 export const apps_config = {
-	finder,
+	profile,
 	wallpapers,
 	calendar,
-	// safari,
-
-	// 'system-preferences': systemPreferences,
-
-	'purus-twitter': purusTwitter,
 };
