@@ -5,6 +5,7 @@
 	import BootupScreen from './BootupScreen.svelte';
 	import SystemUpdate from './SystemUpdate.svelte';
 	import WindowsArea from './Window/WindowsArea.svelte';
+	import { device } from '🍎/state/device.svelte.ts';
 
 	const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
 
@@ -25,8 +26,10 @@
 <svelte:body oncontextmenu={suppressContextMenu} />
 
 <div class="container">
-	<main>
-		<TopBar />
+	<main class:mobile={device.is_mobile}>
+		{#if !device.is_mobile}
+			<TopBar />
+		{/if}
 		<WindowsArea />
 		<Dock />
 	</main>
@@ -48,5 +51,10 @@
 
 		display: grid;
 		grid-template-rows: auto 1fr auto;
+
+		/* Mobile hides the top menu bar, so drop its grid track. */
+		&.mobile {
+			grid-template-rows: 1fr auto;
+		}
 	}
 </style>
