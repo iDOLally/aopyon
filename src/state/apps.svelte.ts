@@ -8,6 +8,7 @@ export const apps = $state({
 		wallpapers: false,
 		// safari: false,
 		calendar: false,
+		spp: false,
 		// 'system-preferences': false,
 	} as Record<AppID, boolean>,
 
@@ -24,6 +25,7 @@ export const apps = $state({
 		wallpapers: 0,
 		// safari: 0,
 		calendar: 0,
+		spp: 0,
 		// 'system-preferences': 0,
 	} as Record<AppID, number>,
 
@@ -34,6 +36,7 @@ export const apps = $state({
 		wallpapers: false,
 		// safari: false,
 		calendar: false,
+		spp: false,
 		// 'system-preferences': false,
 	} as Record<AppID, boolean>,
 
@@ -42,6 +45,7 @@ export const apps = $state({
 		wallpapers: false,
 		// safari: false,
 		calendar: false,
+		spp: false,
 		// 'system-preferences': false,
 	} as Record<AppID, boolean>,
 });

@@ -13,6 +13,14 @@ const calendar = create_app_config({
 	resizable: true,
 
 	height: 640,
+	width: 1000,
+});
+
+const spp = create_app_config({
+	title: '撮影会',
+	resizable: true,
+
+	height: 800,
 	width: 800,
 
 	dock_breaks_before: true,
@@ -28,6 +36,7 @@ const profile = create_app_config({
 
 export const apps_config = {
 	profile,
+	spp,
 	calendar,
 	wallpapers,
 };

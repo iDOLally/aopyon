@@ -16,4 +16,8 @@
 	{#await import('./Profile/Profile.svelte') then { default: Profile }}
 		<Profile />
 	{/await}
+{:else if app_id === 'spp'}
+	{#await import('./SeasonPhotoPlus/SeasonPhotoPlus.svelte') then { default: SeasonPhotoPlus }}
+		<SeasonPhotoPlus />
+	{/await}
 {/if}
